@@ -1,0 +1,39 @@
+{
+  "name": "@dopa/create-app",
+  "version": "0.0.0",
+  "description": "create app",
+  "keywords": [
+    "create-app"
+  ],
+  "author": "withoutmeat <withoutmeat@qq.com>",
+  "homepage": "",
+  "license": "ISC",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "copy-template": "node ./mvdir.js",
+    "dev": "tsc -w --p .",
+    "clean": "rimraf *.tsbuildinfo dist",
+    "build": "tsc -b ."
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npm.taobao.org/"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.36",
+    "commander": "^7.2.0",
+    "mvdir": "^1.0.21",
+    "rimraf": "^3.0.2"
+  },
+  "dependencies": {
+    "@dopa/log": "^0.0.0",
+    "chalk": "^4.1.0",
+    "enquirer": "^2.3.6"
+  }
+}

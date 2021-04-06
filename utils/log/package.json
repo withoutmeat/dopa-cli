@@ -1,0 +1,37 @@
+{
+  "name": "@dopa/log",
+  "main": "dist/index.js",
+  "source": "index.ts",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "dev": "tsc -w --p .",
+    "clean": "rimraf *.tsbuildinfo dist",
+    "build": "tsc -b ."
+  },
+  "version": "0.0.0",
+  "description": "@dopa/log",
+  "keywords": [
+    "log",
+    "npmlog"
+  ],
+  "author": "withoutmeat <withoutmeat@qq.com>",
+  "homepage": "",
+  "license": "ISC",
+  "directories": {
+    "dist": "dist"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npm.taobao.org/"
+  },
+  "dependencies": {
+    "npmlog": "^4.1.2"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.36",
+    "@types/npmlog": "^4.1.2",
+    "rimraf": "^3.0.2"
+  }
+}

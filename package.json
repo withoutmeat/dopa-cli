@@ -1,0 +1,14 @@
+{
+  "name": "root",
+  "private": true,
+  "workspaces": [
+    "core/*",
+    "commands/*",
+    "utils/*"
+  ],
+  "devDependencies": {
+    "lerna": "^3.22.1",
+    "prettier": "^2.2.1",
+    "rimraf": "^3.0.2"
+  }
+}

@@ -1,0 +1,7 @@
+playground
+node_modules
+dist
+.DS_Store
+*.log
+*.tsbuildinfo
+package-lock.json
