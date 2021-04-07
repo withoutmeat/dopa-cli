@@ -32,7 +32,7 @@
     "rimraf": "^3.0.2"
   },
   "dependencies": {
-    "@dopa/create-app": "^0.0.1",
+    "@dopa/create-app": "^0.0.0",
     "@dopa/log": "^0.0.0",
     "chalk": "^4.1.0",
     "commander": "^7.2.0",
