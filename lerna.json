@@ -2,7 +2,8 @@
   "packages": [
     "core/*",
     "commands/*",
-    "utils/*"
+    "utils/*",
+    "playground/*"
   ],
   "npmClient": "yarn",
   "version": "independent",

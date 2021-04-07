@@ -1,17 +1,14 @@
 import { Cli } from './Cli';
 
 // commands
-import createAppCommand from "@dopa/create-app"
-
-// const exec = require("@dopa/exec");
-
-// const args = require("minimist")(process.argv.slice(2));
-
-// const envVars = require("dotenv").config();
+import { createAppCommand } from '@dopa/create-app/dist/command';
+import { serveAppCommand } from '@dopa/serve/dist/command';
+import { buildAppCommand } from '@dopa/build/dist/command';
 
 export default function main() {
-  new Cli("dopa")
+  new Cli('dopa')
     .registerCommand(createAppCommand)
-    .parse(process.argv)
+    .registerCommand(serveAppCommand)
+    .registerCommand(buildAppCommand)
+    .parse(process.argv);
 }
-

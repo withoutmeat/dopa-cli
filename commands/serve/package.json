@@ -1,0 +1,18 @@
+{
+  "name": "@dopa/serve",
+  "version": "0.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "dev": "tsc -w --p .",
+    "clean": "rimraf *.tsbuildinfo dist",
+    "build": "tsc -b ."
+  },
+  "keywords": [],
+  "author": "withoutmeat <withoutmeat@qq.com>",
+  "license": "ISC",
+  "dependencies": {
+    "@dopa/webpack": "^0.0.0"
+  }
+}

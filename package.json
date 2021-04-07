@@ -4,7 +4,8 @@
   "workspaces": [
     "core/*",
     "commands/*",
-    "utils/*"
+    "utils/*",
+    "playground/*"
   ],
   "devDependencies": {
     "lerna": "^3.22.1",

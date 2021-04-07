@@ -1,0 +1,16 @@
+{
+  "name": "template-vue3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "serve": "npx dopa serve",
+    "build": "npx dopa build"
+  },
+  "keywords": [],
+  "author": "withoutmeat <withoutmeat@qq.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "@dopa/cli": "^0.0.0"
+  }
+}
