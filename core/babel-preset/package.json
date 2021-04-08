@@ -1,0 +1,25 @@
+{
+  "name": "@dopa/babel-preset",
+  "version": "0.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "tsc -w --p .",
+    "clean": "rimraf *.tsbuildinfo dist",
+    "build": "tsc -b ."
+  },
+  "keywords": [],
+  "author": "withoutmeat <withoutmeat@qq.com>",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.13.14",
+    "@babel/plugin-proposal-class-properties": "^7.13.0",
+    "@babel/plugin-proposal-decorators": "^7.13.5",
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+    "@babel/plugin-transform-runtime": "^7.13.10",
+    "@babel/preset-env": "^7.13.12",
+    "@babel/preset-typescript": "^7.13.0",
+    "@babel/runtime-corejs3": "^7.13.10",
+    "@dopa/log": "^0.0.0"
+  }
+}

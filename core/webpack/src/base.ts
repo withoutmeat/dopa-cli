@@ -18,6 +18,9 @@ import {
 /** webpack基础配置初始状态 */
 const initialConfig: Configuration = {
   target: 'web', // fix: hmr不生效(2020-11-05)
+  cache: {
+    type: "filesystem"
+  }
 };
 
 /** webpack基础配置 */

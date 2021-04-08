@@ -7,6 +7,9 @@ import { findAvailabePort, generateWebpackDevServer, supportStyle } from './part
 const initialDevlopmentWebpackConfig: Configuration = {
   mode: 'development',
   devtool: 'eval-cheap-module-source-map',
+  output: {
+    publicPath: "/",
+  }
 };
 
 /** webpack开发环境最终配置 */

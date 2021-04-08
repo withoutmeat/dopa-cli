@@ -60,7 +60,7 @@ export function resolveAlias(): Configuration {
   return {
     resolve: {
       alias: {
-        '@': path.resolve(__dirname, '..', 'src'),
+        '@': path.join(cwd, './src'),
         vue: '@vue/runtime-dom',
       },
     },
@@ -118,7 +118,7 @@ export function supportTypescriptFile(): Configuration {
         {
           test: /\.tsx?$/,
           use: {
-            loader: 'swc-loader',
+            loader: 'babel-loader',
           },
         },
       ],
@@ -156,6 +156,7 @@ export function generateWebpackDevServer(
   options = {
     historyApiFallback: true,
     contentBase: path.join(__dirname, 'dist'),
+    publicPath: '/',
     hot: true,
     stats: 'errors-only',
     compress: true,
