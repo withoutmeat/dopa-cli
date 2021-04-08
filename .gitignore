@@ -5,4 +5,3 @@ dist
 *.tsbuildinfo
 package-lock.json
 *.gitignore.md
-playground

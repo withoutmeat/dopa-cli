@@ -1,5 +1,11 @@
 {
-  "packages": ["core/*", "commands/*", "utils/*", "playground/*"],
+  "packages": [
+    "core/*",
+    "commands/*",
+    "utils/*",
+    "playground/*",
+    "templates/*"
+  ],
   "npmClient": "yarn",
   "version": "0.0.0",
   "useWorkspaces": true

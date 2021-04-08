@@ -5,7 +5,8 @@
     "core/*",
     "commands/*",
     "utils/*",
-    "playground/*"
+    "playground/*",
+    "templates/*"
   ],
   "devDependencies": {
     "lerna": "^3.22.1",
