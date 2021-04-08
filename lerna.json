@@ -1,6 +1,6 @@
 {
   "packages": ["core/*", "commands/*", "utils/*", "playground/*"],
   "npmClient": "yarn",
-  "version": "independent",
+  "version": "0.0.0",
   "useWorkspaces": true
 }
