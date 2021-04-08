@@ -1,6 +1,6 @@
 {
   "name": "template-vue3",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -19,8 +19,8 @@
   "author": "withoutmeat <withoutmeat@qq.com>",
   "license": "ISC",
   "devDependencies": {
-    "@dopa/babel-preset": "^0.0.0",
-    "@dopa/cli": "^0.0.0",
+    "@dopa/babel-preset": "^0.0.1",
+    "@dopa/cli": "^0.0.1",
     "@storybook/addon-actions": "6.2.3",
     "@storybook/addon-essentials": "6.2.3",
     "@storybook/addon-links": "6.2.3",
@@ -31,7 +31,7 @@
     "@typescript-eslint/parser": "^4.16.1",
     "@vue/test-utils": "^2.0.0-rc.3",
     "eslint": "^7.21.0",
-    "eslint-config-dopa": "^0.0.0",
+    "eslint-config-dopa": "^0.0.1",
     "jest": "^26.6.3",
     "majestic": "^1.8.0",
     "postcss": "^8.2.7",

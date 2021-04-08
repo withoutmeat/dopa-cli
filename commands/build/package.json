@@ -1,6 +1,6 @@
 {
   "name": "@dopa/build",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -13,6 +13,6 @@
   "author": "withoutmeat <withoutmeat@qq.com>",
   "license": "ISC",
   "dependencies": {
-    "@dopa/webpack": "^0.0.0"
+    "@dopa/webpack": "^0.0.1"
   }
 }

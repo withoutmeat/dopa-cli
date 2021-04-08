@@ -1,6 +1,6 @@
 {
   "name": "@dopa/cli",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
@@ -32,10 +32,10 @@
     "rimraf": "^3.0.2"
   },
   "dependencies": {
-    "@dopa/build": "^0.0.0",
-    "@dopa/create-app": "^0.0.0",
-    "@dopa/log": "^0.0.0",
-    "@dopa/serve": "^0.0.0",
+    "@dopa/build": "^0.0.1",
+    "@dopa/create-app": "^0.0.1",
+    "@dopa/log": "^0.0.1",
+    "@dopa/serve": "^0.0.1",
     "chalk": "^4.1.0",
     "commander": "^7.2.0",
     "dotenv": "^8.2.0",

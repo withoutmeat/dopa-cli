@@ -1,6 +1,6 @@
 {
   "name": "@dopa/create-app",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "create app",
   "keywords": [
     "create-app"
@@ -32,7 +32,7 @@
     "rimraf": "^3.0.2"
   },
   "dependencies": {
-    "@dopa/log": "^0.0.0",
+    "@dopa/log": "^0.0.1",
     "chalk": "^4.1.0",
     "enquirer": "^2.3.6"
   }
