@@ -1,0 +1,10 @@
+coverage
+dist
+examples
+node_modules
+
+stories
+scripts
+.eslintrc.js
+code.js
+*.config.js
