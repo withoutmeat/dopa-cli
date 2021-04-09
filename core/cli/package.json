@@ -22,7 +22,8 @@
     "src": "src"
   },
   "files": [
-    "dist"
+    "dist",
+    "bin"
   ],
   "devDependencies": {
     "@types/node": "^14.14.36",
