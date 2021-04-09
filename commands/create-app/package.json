@@ -10,6 +10,9 @@
   "license": "ISC",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "bin": {
+    "create-app": "dist/index.js"
+  },
   "scripts": {
     "copy-template": "node ./mvdir.js",
     "dev": "tsc -w --p .",
@@ -20,7 +23,8 @@
     "lib": "lib"
   },
   "files": [
-    "dist"
+    "dist",
+    "bin"
   ],
   "publishConfig": {
     "access": "public"
@@ -34,6 +38,7 @@
   "dependencies": {
     "@dopa/log": "^0.0.0",
     "chalk": "^4.1.0",
-    "enquirer": "^2.3.6"
+    "enquirer": "^2.3.6",
+    "minimist": "^1.2.5"
   }
 }
