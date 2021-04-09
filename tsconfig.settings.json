@@ -2,13 +2,9 @@
   "compilerOptions": {
     "target": "ESNext",
     "module": "commonjs",
-    "lib": [
-      "ESNext",
-      "dom",
-    ],
-    "types": [
-      "node"
-    ],
+    "moduleResolution": "node",
+    "lib": ["ESNext"],
+    "types": ["node"],
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
