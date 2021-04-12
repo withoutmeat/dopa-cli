@@ -222,6 +222,7 @@ export function supportStyle(isProd = false): Configuration {
                 importLoaders: 1,
                 sourceMap: isProd,
                 modules: {
+                  auto: true,
                   localIdentName: '[name]_[local]_[hash:base64:5]',
                 },
               },
