@@ -202,6 +202,30 @@ export function defineDevAndProd(isProd = false): Configuration {
   };
 }
 
+function makeStyleConfig(isProd = false, module = false) {
+  return [
+    isProd ? MiniCssExtractPlugin.loader : 'vue-style-loader',
+    {
+      loader: 'css-loader',
+      options: {
+        importLoaders: 1,
+        sourceMap: isProd,
+        modules: module
+          ? {
+              localIdentName: '[name]_[local]_[hash:base64:5]',
+            }
+          : false,
+      },
+    },
+    {
+      loader: 'postcss-loader',
+      options: {
+        sourceMap: !isProd,
+      },
+    },
+  ];
+}
+
 /**
  * 支持css
  * @param isProd 是否为生产环境
@@ -211,27 +235,23 @@ export function supportStyle(isProd = false): Configuration {
     module: {
       rules: [
         {
-          test: /\.(post)?css$/,
+          test: /\.module\.(post)?css$/,
           sideEffects: true,
-          use: [
-            isProd ? MiniCssExtractPlugin.loader : 'vue-style-loader',
+          use: makeStyleConfig(isProd, true),
+        },
+        {
+          test: /\.(post)?css$/,
+          exclude: /\.module\.(post)?css$/,
+          sideEffects: true,
+          oneOf: [
+            // 这里匹配 `<style module>`
             {
-              loader: 'css-loader',
-              options: {
-                esModule: isProd,
-                importLoaders: 1,
-                sourceMap: isProd,
-                modules: {
-                  auto: true,
-                  localIdentName: '[name]_[local]_[hash:base64:5]',
-                },
-              },
+              resourceQuery: /module/,
+              use: makeStyleConfig(isProd, true),
             },
+            // 这里匹配普通的 `<style>` 或 `<style scoped>`
             {
-              loader: 'postcss-loader',
-              options: {
-                sourceMap: !isProd,
-              },
+              use: makeStyleConfig(isProd),
             },
           ],
         },

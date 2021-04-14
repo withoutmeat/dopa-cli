@@ -33,14 +33,14 @@ export default (_context: any, options: Partial<Options> = {}) => {
 
   plugins.push(
     [require('@babel/plugin-syntax-dynamic-import')],
-    [
-      require('@babel/plugin-proposal-decorators'),
-      {
-        decoratorsBeforeExport: true,
-        legacy: false,
-      },
-    ],
-    [require('@babel/plugin-proposal-class-properties'), { loose: false }],
+    // [
+    //   require('@babel/plugin-proposal-decorators'),
+    //   {
+    //     decoratorsBeforeExport: true,
+    //     legacy: false,
+    //   },
+    // ],
+    // [require('@babel/plugin-proposal-class-properties'), { loose: false }],
     [
       require('@babel/plugin-transform-runtime'),
       {
