@@ -4,7 +4,7 @@ import log from "npmlog";
 log.level = process.env.LOG_LEVEL || "info";
 
 /** 修改log命令前缀 */
-log.heading = "dopa";
+log.heading = "taco";
 // log.headingStyle = { fg: 'green', bg: 'black' }
 
 /** 添加自定义命令 */

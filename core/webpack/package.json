@@ -1,5 +1,5 @@
 {
-  "name": "@dopa/webpack",
+  "name": "@taco-cli/webpack",
   "version": "0.0.0",
   "description": "webpack",
   "main": "dist/index.js",

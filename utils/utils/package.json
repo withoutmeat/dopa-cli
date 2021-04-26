@@ -1,5 +1,5 @@
 {
-  "name": "@dopa/utils",
+  "name": "@taco-cli/utils",
   "version": "0.0.0",
   "main": "dist/index.js",
   "source": "index.ts",

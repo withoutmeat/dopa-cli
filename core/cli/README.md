@@ -1,11 +1,11 @@
-# `@dopa/cli`
+# `@taco-cli/cli`
 
 > TODO: description
 
 ## Usage
 
 ```
-const cli = require('@dopa/cli');
+const cli = require('@taco-cli/core');
 
 // TODO: DEMONSTRATE API
 ```

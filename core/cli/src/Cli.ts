@@ -1,5 +1,5 @@
 import commander from 'commander';
-import log from "@dopa/log"
+import log from "@taco-cli/log"
 // import semver from "semver"
 import chalk from "chalk"
 // import userHome from "user-home"
@@ -36,7 +36,7 @@ export class Cli extends commander.Command {
 
       log.level = process.env.LOG_LEVEL;
 
-      log.verbose("dopa", "已开启调试模式")
+      log.verbose("taco-cli", "已开启调试模式")
     })
 
     this.on("option:targetPath", () => {

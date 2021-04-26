@@ -1,5 +1,5 @@
 {
-  "name": "@dopa/create-app",
+  "name": "@taco-cli/create-app",
   "version": "0.0.0",
   "description": "create app",
   "keywords": [
@@ -36,7 +36,7 @@
     "rimraf": "^3.0.2"
   },
   "dependencies": {
-    "@dopa/log": "^0.0.0",
+    "@taco-cli/log": "^0.0.0",
     "chalk": "^4.1.0",
     "enquirer": "^2.3.6",
     "minimist": "^1.2.5"

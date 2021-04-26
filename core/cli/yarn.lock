@@ -922,14 +922,14 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
-"@dopa/create-app@file:../../commands/create-app":
+"@taco-cli/create-app@file:../../commands/create-app":
   version "0.0.1"
   dependencies:
-    "@dopa/log" "file:C:/Users/lj/AppData/Local/Yarn/Cache/v6/npm-@dopa-create-app-0.0.1-20e519e3-5fbe-483e-8ea3-85fb09df3f09-1617708375876/node_modules/utils/log"
+    "@taco-cli/log" "file:C:/Users/lj/AppData/Local/Yarn/Cache/v6/npm-@taco-cli-create-app-0.0.1-20e519e3-5fbe-483e-8ea3-85fb09df3f09-1617708375876/node_modules/utils/log"
     chalk "^4.1.0"
     enquirer "^2.3.6"
 
-"@dopa/log@file:../../utils/log":
+"@taco-cli/log@file:../../utils/log":
   version "0.0.0"
   dependencies:
     npmlog "^4.1.2"

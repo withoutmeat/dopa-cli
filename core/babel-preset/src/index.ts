@@ -1,9 +1,9 @@
-import log from '@dopa/log';
+import log from '@taco-cli/log';
 
 interface Options {}
 
 export default (_context: any, options: Partial<Options> = {}) => {
-  log.info("@dopa/babel-preset-app's options: ", JSON.stringify(options));
+  log.info("@taco-cli/babel-preset-app's options: ", JSON.stringify(options));
 
   const presets = [];
   const plugins = [];

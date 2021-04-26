@@ -3,7 +3,7 @@ import path from 'path';
 import { Command } from 'commander';
 import { green } from 'chalk';
 import { prompt } from 'enquirer';
-import log from '@dopa/log';
+import log from '@taco-cli/log';
 
 export interface Options {
   appName?: string;
@@ -83,7 +83,7 @@ class CreateAppCommand {
         type: 'input',
         name: 'name',
         message: `Project name:`,
-        initial: 'dopa-app',
+        initial: 'taco-app',
       });
 
       options.appName = name;
@@ -118,7 +118,7 @@ class CreateAppCommand {
     if (fs.existsSync(appName)) {
       // 目录是否为空文件夹
       if (fs.readdirSync(appName).length) {
-        // 用户命令中是否已选择强制覆盖, 如: dopa app -f
+        // 用户命令中是否已选择强制覆盖, 如: taco app -f
         if (options.force) {
           emptyDir(appName);
         } else {

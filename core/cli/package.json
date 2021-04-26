@@ -1,19 +1,19 @@
 {
-  "name": "@dopa/cli",
+  "name": "@taco-cli/core",
   "version": "0.0.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
-    "dopa": "bin/dopa.js"
+    "taco": "bin/taco.js"
   },
   "scripts": {
     "dev": "tsc -w --p .",
     "clean": "rimraf *.tsbuildinfo dist",
     "build": "tsc -b ."
   },
-  "description": "@dopa/cli",
+  "description": "@taco-cli/core",
   "keywords": [
-    "cli"
+    "core"
   ],
   "author": "withoutmeat <withoutmeat@qq.com>",
   "homepage": "",
@@ -30,10 +30,10 @@
     "rimraf": "^3.0.2"
   },
   "dependencies": {
-    "@dopa/build": "^0.0.0",
-    "@dopa/create-app": "^0.0.0",
-    "@dopa/log": "^0.0.0",
-    "@dopa/serve": "^0.0.0",
+    "@taco-cli/build": "^0.0.0",
+    "@taco-cli/create-app": "^0.0.0",
+    "@taco-cli/log": "^0.0.0",
+    "@taco-cli/serve": "^0.0.0",
     "chalk": "^4.1.0",
     "commander": "^7.2.0",
     "dotenv": "^8.2.0",

@@ -1,5 +1,5 @@
 {
-  "name": "@dopa/serve",
+  "name": "@taco-cli/serve",
   "version": "0.0.0",
   "description": "",
   "main": "dist/index.js",
@@ -13,6 +13,6 @@
   "author": "withoutmeat <withoutmeat@qq.com>",
   "license": "ISC",
   "dependencies": {
-    "@dopa/webpack": "^0.0.0"
+    "@taco-cli/webpack": "^0.0.0"
   }
 }

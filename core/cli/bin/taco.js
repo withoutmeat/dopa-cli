@@ -1,7 +1,7 @@
 #! /usr/bin/env node
 
 const importLocal = require("import-local");
-const log = require("@dopa/log");
+const log = require("@taco-cli/log");
 
 
 if (importLocal(__filename)) {

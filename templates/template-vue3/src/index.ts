@@ -2,9 +2,9 @@
 import { createApp } from 'vue';
 import App from './App.vue';
 
-if (__DEV__ && __ACCESS_TOKEN__) {
-  document.cookie = `ACCESS-TOKEN=${__ACCESS_TOKEN__}`;
-}
+// if (__DEV__ && __ACCESS_TOKEN__) {
+//   document.cookie = `ACCESS-TOKEN=${__ACCESS_TOKEN__}`;
+// }
 
 const app = createApp(App);
 

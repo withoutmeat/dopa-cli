@@ -1,3 +1,3 @@
 module.exports = {
-  presets: ['@dopa/babel-preset'],
+  presets: ['@taco-cli/babel-preset'],
 };

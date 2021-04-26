@@ -1,5 +1,5 @@
 {
-  "name": "@dopa/babel-preset",
+  "name": "@taco-cli/babel-preset",
   "version": "0.0.0",
   "description": "",
   "main": "dist/index.js",
@@ -20,6 +20,6 @@
     "@babel/preset-env": "^7.13.12",
     "@babel/preset-typescript": "^7.13.0",
     "@babel/runtime-corejs3": "^7.13.10",
-    "@dopa/log": "^0.0.0"
+    "@taco-cli/log": "^0.0.0"
   }
 }

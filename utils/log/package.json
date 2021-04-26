@@ -1,5 +1,5 @@
 {
-  "name": "@dopa/log",
+  "name": "@taco-cli/log",
   "main": "dist/index.js",
   "source": "index.ts",
   "types": "dist/index.d.ts",
@@ -9,7 +9,7 @@
     "build": "tsc -b ."
   },
   "version": "0.0.0",
-  "description": "@dopa/log",
+  "description": "@taco-cli/log",
   "keywords": [
     "log",
     "npmlog"

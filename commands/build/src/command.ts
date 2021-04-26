@@ -1,5 +1,5 @@
 import { Command } from 'commander';
-import { startBuild } from '@dopa/webpack';
+import { startBuild } from '@taco-cli/webpack';
 
 class BuildAppCommand {
   install(program: Command) {
