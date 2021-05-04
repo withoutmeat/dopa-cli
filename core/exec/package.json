@@ -1,0 +1,32 @@
+{
+  "name": "@taco-cli/exec",
+  "version": "0.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "dev": "tsc -w --p .",
+    "clean": "rimraf *.tsbuildinfo dist",
+    "build": "tsc -b ."
+  },
+  "description": "@taco-cli/exec",
+  "keywords": [
+    "exec"
+  ],
+  "author": "withoutmeat <withoutmeat@qq.com>",
+  "homepage": "",
+  "license": "ISC",
+  "directories": {
+    "src": "src"
+  },
+  "files": [
+    "dist"
+  ],
+  "devDependencies": {
+    "@types/node": "^14.14.36",
+    "rimraf": "^3.0.2"
+  },
+  "dependencies": {
+    "@taco-cli/log": "^0.0.0",
+    "@taco-cli/package": "^0.0.0"
+  }
+}
