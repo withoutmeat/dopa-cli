@@ -1,48 +1,57 @@
-import path from 'path';
-import { Command } from 'commander';
-import Package from '@taco-cli/package';
-import log from '@taco-cli/log';
+import path from 'path'
+import { Command } from 'commander'
+import Package from '@taco-cli/package'
+import log from '@taco-cli/log'
 
 const commandToPackageMap: { [k: string]: string } = {
   'create-app': '@taco-cli/create-app',
-};
+}
 
-const CACHE_DIR = 'dependencies';
+const CACHE_DIR = 'dependencies'
 
 export default async function exec() {
-  const homePath = process.env.CLI_HOME_PATH!;
-  const targetPath = process.env.CLI_TARGET_PATH || path.resolve(homePath, CACHE_DIR);
-  const storePath = path.resolve(targetPath, 'node_modules');
+  const homePath = process.env.CLI_HOME_PATH!
+  const targetPath =
+    process.env.CLI_TARGET_PATH || path.resolve(homePath, CACHE_DIR)
+  const storePath = path.resolve(targetPath, 'node_modules')
 
-  log.verbose('homePath: ', homePath);
-  log.verbose('targetPath: ', targetPath);
-  log.verbose('storePath: ', storePath);
+  log.verbose('homePath: ', homePath)
+  log.verbose('targetPath: ', targetPath)
+  log.verbose('storePath: ', storePath)
 
-  const args = Array.from(arguments);
+  const args = Array.from(arguments)
 
-  const command: Command = args[args.length - 1];
+  // require('@taco-cli/create-app').default.call(null, {
+  //   appName: args[0],
+  //   ...args[1],
+  // });
+
+  // return;
+
+  const command: Command = args[args.length - 1]
 
   const pkg = new Package({
     name: commandToPackageMap[command.name()],
     version: 'latest',
     targetPath,
     storePath,
-  });
-
-  console.log(pkg);
+  })
 
   if (await pkg.exists()) {
-    await pkg.update();
+    await pkg.update()
   } else {
-    await pkg.install();
+    await pkg.install()
   }
 
-  const mainFilePath = await pkg.getMainFilePath();
+  const mainFilePath = await pkg.getMainFilePath()
 
   if (mainFilePath) {
-    log.verbose(`${pkg.name} 入口文件: `, mainFilePath);
-    // require(mainFilePath).apply(null, args);
+    log.verbose(`${pkg.name} 入口文件: `, mainFilePath)
+    require(mainFilePath).apply(null, {
+      appName: args[0],
+      ...args[1],
+    })
   } else {
-    throw new Error(`${pkg}'s main not found`);
+    throw new Error(`${pkg}'s main not found`)
   }
 }

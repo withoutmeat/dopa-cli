@@ -1,14 +1,16 @@
 import { Cli } from './Cli';
-
-// commands
-import { createAppCommand } from '@taco-cli/create-app/dist/command';
-import { serveAppCommand } from '@taco-cli/serve/dist/command';
-import { buildAppCommand } from '@taco-cli/build/dist/command';
+import exec from '@taco-cli/exec';
 
 export default function main() {
-  new Cli('taco')
-    .registerCommand(createAppCommand)
-    .registerCommand(serveAppCommand)
-    .registerCommand(buildAppCommand)
-    .parse(process.argv);
+  const program = new Cli('taco');
+
+  program
+    .command('create-app [appName]')
+    .alias('app')
+    .description('新建项目')
+    .option('-f, --force', '如果文件已存在，是否强制覆盖', false)
+    .option('-t, --template <template>', '选择一个模板')
+    .action(exec);
+
+  program.parse(process.argv);
 }

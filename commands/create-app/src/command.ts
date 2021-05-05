@@ -1,81 +1,191 @@
 import fs from 'fs';
 import path from 'path';
-import { Command } from 'commander';
+import ora from 'ora';
 import { green } from 'chalk';
 import { prompt } from 'enquirer';
+import userHome from 'user-home';
+import Command from '@taco-cli/command';
 import log from '@taco-cli/log';
+import Package from '@taco-cli/package';
+import fse from 'fs-extra';
+import glob from 'glob';
+import ejs from 'ejs';
 
-export interface Options {
-  appName?: string;
-  force?: boolean;
-  template?: string;
+interface Options {
+  appName: string;
+  force: boolean;
+  template: string;
+  tailwindcss: boolean;
+  storybook: boolean;
+  test: boolean;
+  eslint: boolean;
 }
 
-const TEMPLATES = ['vue3'];
+const relatedFilesMap = {
+  tailwindcss: ['tailwind.config.js'],
+  storybook: ['.storybook', 'src/stories'],
+  test: ['jest.config.js', 'src/tests'],
+  eslint: ['.eslintrc.js', '.eslintignore'],
+};
 
-const cwd = process.cwd();
-
-const renameFiles: { [prop: string]: string } = {
+const renameFiles = {
   _env: '.env',
 };
 
-class CreateAppCommand {
-  install(program: Command) {
-    program
-      .command('create-app [appName]')
-      .alias('app')
-      .description('新建项目')
-      .option('-f, --force', '如果文件已存在，是否强制覆盖', false)
-      .option('-t, --template <template>', '选择一个模板')
-      .action(this.action);
+const TEMPLATES = ['vue3'];
+const cwd = process.cwd();
+
+class CreateAppCommand extends Command {
+  options: Options;
+
+  constructor(options: Options) {
+    super();
+    this.options = options;
+    console.log(options);
   }
 
-  action = async (appName: string | undefined, _options: Omit<Options, 'appName'>) => {
-    const options = { appName, ..._options };
+  async init() {
+    await this.prepare();
+    log.verbose('appOptions: ', JSON.stringify(this.options));
+  }
 
-    await this.confirmAppName(options);
+  async exec() {
+    try {
+      await this.downloadTemplate();
+      await this.installTemplate();
+    } catch (error) {
+      log.error('CreateAppCommand error: ', error.message);
+    }
+  }
 
-    if (options.appName == undefined) return;
+  // 1. 准备阶段
+  async prepare() {
+    // 确认app名称
+    await this.confirmAppName(this.options);
 
-    if ((await this.confirmForceRemoveIfTargetDiExists(options)) === false) return;
+    // 确认文件夹是否可以直接创建，或者清空后在创建
+    const isDirOk = await this.confirmIsDirOk(this.options);
+    if (isDirOk === false) return;
 
-    await this.confirmTemplate(options);
+    // 确认项目模版类型
+    await this.confirmTemplate(this.options);
+    if (this.options.template == undefined) return;
+    await this.confirmEslint(this.options);
+    await this.confirmStorybook(this.options);
+    await this.confirmTailwind(this.options);
+    await this.confirmTest(this.options);
 
-    if (options.template == undefined) return;
+    console.log(green(`\n正在新建项目: ${this.options.appName}...`));
+    console.log();
+  }
 
-    const root = path.join(cwd, options.appName);
+  // 2. 模版下载
+  async downloadTemplate() {
+    log.verbose(
+      'downloadTemplate',
+      '@taco-cli/template-' + this.options.template
+    );
 
-    log.verbose('项目路径: ', root);
+    const targetPath = path.resolve(userHome, '.taco-cli', 'templates');
+    const storePath = path.resolve(targetPath, 'node_modules');
+    const packageName = '@taco-cli/template-' + this.options.template;
+    const packageVersion = 'latest';
 
-    const templateDir = path.join(__dirname, `template-${options.template}`);
+    const templatePackage = new Package({
+      targetPath,
+      storePath,
+      name: packageName,
+      version: packageVersion,
+    });
 
-    log.verbose('项目模板: ', templateDir);
+    let spinner;
 
-    const files = fs.readdirSync(templateDir);
-
-    const write = (file: string, content?: string) => {
-      const targetPath = path.join(root, renameFiles[file] || file);
-
-      log.verbose('创建文件: ', renameFiles[file] || file);
-
-      if (content) {
-        fs.writeFileSync(targetPath, content);
-      } else {
-        copy(path.join(templateDir, file), targetPath);
-      }
-    };
-
-    for (const file of files.filter((f) => f !== 'package.json')) {
-      write(file);
+    if (templatePackage.exists()) {
+      spinner = ora(`update ${packageName}`).start();
+      await templatePackage.update();
+      log.info('更新模版成功', packageName);
+    } else {
+      spinner = ora(`download ${packageName}`).start();
+      await templatePackage.install();
+      log.info('下载模版成功', packageName);
     }
 
-    const pkg = require(path.join(templateDir, `package.json`));
-    pkg.name = path.basename(root);
-    write('package.json', JSON.stringify(pkg, null, 2));
-    console.log();
-    console.log(green(`项目${options.appName}创建成功!`));
-    console.log();
-  };
+    spinner.stop();
+  }
+
+  // 3. 安装模版
+  async installTemplate() {
+    const targetPath = path.resolve(cwd, this.options.appName);
+
+    const templatePath = path.resolve(
+      userHome,
+      '.taco-cli',
+      'templates',
+      this.options.template,
+      'template'
+    );
+
+    // const templatePath = path.resolve(
+    //   '/Users/lijian/keep-learning/dopa-cli/templates/template-vue3/template'
+    // );
+
+    log.verbose('项目路径: ', targetPath);
+    log.verbose('模版路径: ', templatePath);
+
+    fse.ensureDirSync(templatePath);
+    fse.ensureDirSync(targetPath);
+    fse.copySync(templatePath, targetPath);
+
+    // 删除相关文件
+    Object.keys(relatedFilesMap).forEach((key) => {
+      // @ts-expect-error
+      !this.options[key] &&
+        // @ts-expect-error
+        relatedFilesMap[key].forEach((fileName) =>
+          fse.removeSync(path.resolve(targetPath, fileName))
+        );
+    });
+
+    // 重命名相关文件
+    Object.keys(renameFiles).forEach((key) => {
+      fse.move(
+        path.resolve(targetPath, key),
+        // @ts-expect-error
+        path.resolve(targetPath, renameFiles[key])
+      );
+    });
+
+    glob(
+      '*.ejs',
+      {
+        cwd: targetPath,
+        ignore: '',
+        nodir: true,
+      },
+      (err, matches) => {
+        if (err) {
+          throw err;
+        }
+
+        matches.forEach((file) => {
+          const filePath = path.resolve(targetPath, file);
+          ejs.renderFile(filePath, { ...this.options }, {}, (err, result) => {
+            if (err) {
+              throw err;
+            } else {
+              fse.writeFileSync(
+                filePath,
+                result
+                // result.replace(/([^\t]\n)(( )*(\n)*)*\n/g, '$1')
+              );
+              fse.moveSync(filePath, filePath.replace(/\.ejs$/, ''));
+              log.info(filePath.replace(/\.ejs$/, ''), '创建成功');
+            }
+          });
+        });
+      }
+    );
+  }
 
   async confirmAppName(options: Options) {
     if (options.appName == void 0) {
@@ -90,6 +200,92 @@ class CreateAppCommand {
     }
 
     return options.appName;
+  }
+
+  async confirmTailwind(options: Options) {
+    if (options.tailwindcss == void 0) {
+      const { yes } = await prompt<{ yes: boolean }>({
+        type: 'confirm',
+        name: 'yes',
+        initial: 'Y',
+        message: '是否需要 TailwindCSS?',
+      });
+
+      options.tailwindcss = yes;
+    }
+  }
+
+  async confirmTest(options: Options) {
+    if (options.test == void 0) {
+      const { yes } = await prompt<{ yes: boolean }>({
+        type: 'confirm',
+        name: 'yes',
+        initial: 'Y',
+        message: '是否需要单元测试?',
+      });
+
+      options.test = yes;
+    }
+  }
+
+  async confirmEslint(options: Options) {
+    if (options.eslint == void 0) {
+      const { yes } = await prompt<{ yes: boolean }>({
+        type: 'confirm',
+        name: 'yes',
+        initial: 'Y',
+        message: '是否需要 Eslint?',
+      });
+
+      options.eslint = yes;
+    }
+  }
+
+  async confirmStorybook(options: Options) {
+    if (options.storybook == void 0) {
+      const { yes } = await prompt<{ yes: boolean }>({
+        type: 'confirm',
+        name: 'yes',
+        initial: 'Y',
+        message: '是否需要 Storybook?',
+      });
+
+      options.storybook = yes;
+    }
+  }
+
+  async confirmIsDirOk(options: Options) {
+    const appName = options.appName as string;
+
+    // 当前目录是否存在同名目录
+    if (fs.existsSync(appName)) {
+      // 目录是否为空文件夹
+      if (fs.readdirSync(appName).length) {
+        // 用户命令中是否已选择强制覆盖, 如: taco app -f
+        if (options.force) {
+          emptyDir(appName);
+        } else {
+          const { yes } = await prompt<{ yes: boolean }>({
+            type: 'confirm',
+            name: 'yes',
+            initial: 'Y',
+            message:
+              `${appName}已存在, 并且不是一个空目录!！！\n` + `是否清空并继续?`,
+          });
+
+          options.force = yes;
+
+          options.force && emptyDir(appName);
+        }
+      } else {
+        return true;
+      }
+    } else {
+      fs.mkdirSync(appName, { recursive: true });
+      return true;
+    }
+
+    return options.force;
   }
 
   async confirmTemplate(options: Options) {
@@ -107,43 +303,11 @@ class CreateAppCommand {
 
     return options.template;
   }
-
-  async confirmForceRemoveIfTargetDiExists(options: Options) {
-    const appName = options.appName as string;
-
-    console.log(green(`\n正在新建项目: ${appName}...`));
-    console.log();
-
-    // 当前目录是否存在同名目录
-    if (fs.existsSync(appName)) {
-      // 目录是否为空文件夹
-      if (fs.readdirSync(appName).length) {
-        // 用户命令中是否已选择强制覆盖, 如: taco app -f
-        if (options.force) {
-          emptyDir(appName);
-        } else {
-          const { yes } = await prompt<{ yes: boolean }>({
-            type: 'confirm',
-            name: 'yes',
-            initial: 'Y',
-            message: `${appName}已存在, 并且不是一个空目录!！！\n` + `是否清空并继续?`,
-          });
-
-          options.force = yes;
-
-          options.force && emptyDir(appName);
-        }
-      } else {
-        return true;
-      }
-    } else {
-      fs.mkdirSync(appName, { recursive: true });
-      return true;
-    }
-
-    return options.force;
-  }
 }
+
+export default (argv: Options) => {
+  return new CreateAppCommand(argv);
+};
 
 function copy(src: string, dest: string) {
   const stat = fs.statSync(src);
@@ -178,5 +342,3 @@ function emptyDir(dir: string) {
     }
   }
 }
-
-export const createAppCommand = new CreateAppCommand();
